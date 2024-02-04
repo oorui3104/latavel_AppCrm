@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BottleController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,6 +26,19 @@ Route::prefix('bottles/')
         Route::get('index', 'index')->name('index');
         Route::post('store', 'store')->name('store');
         Route::delete('destroy/{id}', 'destroy')->name('destroy');
+    });
+
+Route::prefix('customers/')
+    ->middleware(['auth', 'verified'])
+    ->controller(CustomerController::class)
+    ->name('customers.')
+    ->group(function () {
+        Route::get('index', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::post('update/{id}', 'update')->name('update');
+        // Route::delete('destroy/{id}', 'destroy')->name('destroy');
     });
 
 
